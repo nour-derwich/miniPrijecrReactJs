@@ -13,35 +13,14 @@ const [disconnectedAgents, setDisconnectedAgents] = useState(0);
 const [pendingAgents, setPendingAgents] = useState(0);
 const [neverConnectedAgents, setNeverConnectedAgents] = useState(0);
 // Function to count the agents with different statuses
+
 const countAgents = (data) => {
-  let total = 0;
-    let active = 0;
-    let disconnected = 0;
-    let pending = 0;
-    let neverConnected = 0;
-  for (var i = 0; i < data.results.length; i++) {
-      var agent = data.results[i];
-        // check if the agent is not the one with name "cyr-customer-ossec.local" or ID "000"
-    
-          if (agent.name !== "cyr-customer-ossec.local" && agent.id !== "000") {
-            total += 1;
-            // check the status of the agent
-            if (agent.status === "active") {
-                active += 1;
-            } else if (agent.status === "disconnected") {
-                disconnected += 1;
-            } else if (agent.status === "pending") {
-                pending += 1;
-            } else if (agent.status === "never_connected") {
-                neverConnected += 1;
-            }
-        }
-      }
-      setTotalAgents(total);
-      setActiveAgents(active);
-      setDisconnectedAgents(disconnected);
-      setPendingAgents(pending);
-      setNeverConnectedAgents(neverConnected);
+  const filteredData = data.results.filter(agent => agent.name !== "cyr-customer-ossec.local" && agent.id !== "000");
+  setTotalAgents(filteredData.length);
+  setActiveAgents(filteredData.filter(agent => agent.status === "active").length);
+  setDisconnectedAgents(filteredData.filter(agent => agent.status === "disconnected").length);
+  setPendingAgents(filteredData.filter(agent => agent.status === "pending").length);
+  setNeverConnectedAgents(filteredData.filter(agent => agent.status === "never_connected").length);
 }
 useEffect(() => {
   countAgents(data);
