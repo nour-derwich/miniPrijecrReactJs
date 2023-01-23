@@ -5,6 +5,14 @@ import React from 'react';
 const Agents=({ totalAgents, activeAgents, disconnectedAgents, neverConnectedAgents, pendingAgents })=> {
  
   return (
+    <>
+    <div className='col-1'>
+      <p>Hello admin
+        <br/>
+        View the status of your agents and the evolution of their latest alarts
+      </p>
+      <h4 className='text'>Installed agents by thier status</h4>
+    </div>
     <div  className="d-flex container">
 
  <Card  className="card">
@@ -61,7 +69,7 @@ const Agents=({ totalAgents, activeAgents, disconnectedAgents, neverConnectedAge
         </Card.Body>
       </Card>
 
-    </div>
+    </div></>
   )
 }
 
